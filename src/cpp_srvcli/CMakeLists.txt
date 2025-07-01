@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(example_interfaces REQUIRED)
+find_package(tutorial_interfaces REQUIRED)
 
 add_executable(server src/add_two_ints_server.cpp)
 ament_target_dependencies(server
@@ -20,6 +21,18 @@ add_executable(client src/add_two_ints_client.cpp)
 ament_target_dependencies(client
   rclcpp
   example_interfaces
+)
+
+add_executable(server3 src/add_three_ints_server.cpp)
+ament_target_dependencies(server3
+  rclcpp
+  tutorial_interfaces
+)
+
+add_executable(client3 src/add_three_ints_client.cpp)
+ament_target_dependencies(client3
+  rclcpp
+  tutorial_interfaces
 )
 
 if(BUILD_TESTING)
@@ -38,6 +51,12 @@ install(TARGETS server
   DESTINATION lib/${PROJECT_NAME})
 
 install(TARGETS client
+  DESTINATION lib/${PROJECT_NAME})
+
+install(TARGETS server3
+  DESTINATION lib/${PROJECT_NAME})
+
+install(TARGETS client3
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

@@ -62,7 +62,7 @@ public:
       const std::shared_ptr<const Fibonacci::Feedback> feedback)
     {
       std::stringstream ss;
-      ss << "Next number in sequence received: ";
+      ss << "Next number in sequence received...\nCurrent partial sequence: ";
       for (auto number : feedback->partial_sequence) {
         ss << number << " ";
       }
@@ -76,16 +76,19 @@ public:
           break;
         case rclcpp_action::ResultCode::ABORTED:
           RCLCPP_ERROR(this->get_logger(), "Goal was aborted");
+          rclcpp::shutdown();
           return;
         case rclcpp_action::ResultCode::CANCELED:
           RCLCPP_ERROR(this->get_logger(), "Goal was canceled");
+          rclcpp::shutdown();
           return;
         default:
           RCLCPP_ERROR(this->get_logger(), "Unknown result code");
+          rclcpp::shutdown();
           return;
       }
       std::stringstream ss;
-      ss << "Result received: ";
+      ss << "Result received...\nFibonacci sequence is: ";
       for (auto number : result.result->sequence) {
         ss << number << " ";
       }
